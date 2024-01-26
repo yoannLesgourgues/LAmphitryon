@@ -23,7 +23,7 @@
         android:layout_margin="50dp"
         android:ems="15"
         android:inputType="textEmailAddress"
-        android:text="Votre adresse mail"
+        android:hint="Votre adresse mail"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/accueil"
@@ -36,7 +36,7 @@
         android:layout_margin="50dp"
         android:ems="15"
         android:inputType="textPassword"
-        android:text="Votre mot de passe"
+        android:hint="Votre mot de passe"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextEmail" />

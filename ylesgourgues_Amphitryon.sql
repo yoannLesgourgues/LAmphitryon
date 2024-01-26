@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : ven. 19 jan. 2024 à 16:57
+-- Généré le : ven. 26 jan. 2024 à 16:48
 -- Version du serveur : 10.5.15-MariaDB-0+deb11u1
 -- Version de PHP : 8.1.11
 
@@ -32,6 +32,15 @@ CREATE TABLE `CATEGORIEPLAT` (
   `NOMCATEG` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `CATEGORIEPLAT`
+--
+
+INSERT INTO `CATEGORIEPLAT` (`IDCATEG`, `NOMCATEG`) VALUES
+(1, 'plat_principal'),
+(2, 'entree'),
+(3, 'dessert');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +56,13 @@ CREATE TABLE `COMMANDE` (
   `ETATCOMMANDE` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `COMMANDE`
+--
+
+INSERT INTO `COMMANDE` (`IDCOMMANDE`, `DATE_SERVICE`, `NUMTABLE`, `IDSERVICE`, `HEURECOMMANDE`, `ETATCOMMANDE`) VALUES
+(1, '2024-01-26', 1, 1, '13:27:48', 'non réglée');
+
 -- --------------------------------------------------------
 
 --
@@ -61,6 +77,13 @@ CREATE TABLE `COMMANDER` (
   `QUANTITE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `COMMANDER`
+--
+
+INSERT INTO `COMMANDER` (`IDPLAT`, `IDCOMMANDE`, `ETATPLAT`, `INFOSCOMPLEMENTAIRES`, `QUANTITE`) VALUES
+(1, 1, 'commandé', 'il est pas vegan', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +93,14 @@ CREATE TABLE `COMMANDER` (
 CREATE TABLE `DATE_SERVICE` (
   `DATE_SERVICE` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `DATE_SERVICE`
+--
+
+INSERT INTO `DATE_SERVICE` (`DATE_SERVICE`) VALUES
+('2024-01-26'),
+('2024-02-14');
 
 -- --------------------------------------------------------
 
@@ -84,6 +115,15 @@ CREATE TABLE `PLAT` (
   `DESCRIPTIF` char(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `PLAT`
+--
+
+INSERT INTO `PLAT` (`IDPLAT`, `IDCATEG`, `NOMPLAT`, `DESCRIPTIF`) VALUES
+(1, 1, 'entrecôte', 'vive la viande'),
+(2, 3, 'Flan', 'tres moelleux'),
+(3, 2, 'Salade', 'tres vert');
+
 -- --------------------------------------------------------
 
 --
@@ -95,9 +135,22 @@ CREATE TABLE `PROPOSERPLAT` (
   `IDPLAT` int(11) NOT NULL,
   `DATE_SERVICE` date NOT NULL,
   `QUANTITEPROPOSEE` int(11) DEFAULT NULL,
-  `PRIXVENTE` decimal(5,2) DEFAULT NULL,
+  `PRIXVENTE` decimal(15,2) DEFAULT NULL,
   `QUANTITEVENDUE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `PROPOSERPLAT`
+--
+
+INSERT INTO `PROPOSERPLAT` (`IDSERVICE`, `IDPLAT`, `DATE_SERVICE`, `QUANTITEPROPOSEE`, `PRIXVENTE`, `QUANTITEVENDUE`) VALUES
+(1, 1, '2024-01-26', 10, '1.00', 10),
+(1, 1, '2024-02-14', 100, '5.00', 10),
+(1, 2, '2024-02-14', 10, '5.00', 10),
+(1, 3, '2024-02-14', 100, '50.00', 10),
+(2, 1, '2024-02-14', 10, '5.00', 10),
+(3, 2, '2024-02-14', 100, '7.00', 10),
+(3, 3, '2024-02-14', 100, '5.00', 10);
 
 -- --------------------------------------------------------
 
@@ -108,6 +161,15 @@ CREATE TABLE `PROPOSERPLAT` (
 CREATE TABLE `SERVICE` (
   `IDSERVICE` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `SERVICE`
+--
+
+INSERT INTO `SERVICE` (`IDSERVICE`) VALUES
+(1),
+(2),
+(3);
 
 -- --------------------------------------------------------
 
@@ -143,6 +205,13 @@ CREATE TABLE `TABLE_RESTO` (
   `NOMBREPLACE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `TABLE_RESTO`
+--
+
+INSERT INTO `TABLE_RESTO` (`IDSERVICE`, `DATE_SERVICE`, `NUMTABLE`, `IDUTILISATEUR`, `NOMBREPLACE`) VALUES
+(1, '2024-01-26', 1, 1, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -163,7 +232,7 @@ CREATE TABLE `UTILISATEUR` (
 --
 
 INSERT INTO `UTILISATEUR` (`IDUTILISATEUR`, `IDSTATUT`, `LOGIN`, `MDP`, `NOM`, `PRENOM`) VALUES
-(1, 1, 'corentin.lartigue@gmail.com', 'corentin', 'lartigue', 'coco');
+(1, 1, 'corentin', 'corentin', 'lartigue', 'coco');
 
 --
 -- Index pour les tables déchargées
@@ -245,25 +314,25 @@ ALTER TABLE `UTILISATEUR`
 -- AUTO_INCREMENT pour la table `CATEGORIEPLAT`
 --
 ALTER TABLE `CATEGORIEPLAT`
-  MODIFY `IDCATEG` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDCATEG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `COMMANDE`
 --
 ALTER TABLE `COMMANDE`
-  MODIFY `IDCOMMANDE` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDCOMMANDE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `PLAT`
 --
 ALTER TABLE `PLAT`
-  MODIFY `IDPLAT` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDPLAT` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `SERVICE`
 --
 ALTER TABLE `SERVICE`
-  MODIFY `IDSERVICE` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDSERVICE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `STATUTUTILISATEUR`

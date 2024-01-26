@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
         final EditText textMdp = findViewById(R.id.editTextMdp);
 
         RequestBody formBody = new FormBody.Builder()
-                .add("login", textLogin.getText().toString())
-                .add("mdp",  textMdp.getText().toString())
+                .add("LOGIN", textLogin.getText().toString())
+                .add("MDP",  textMdp.getText().toString())
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://10.100.0.6/~clartigue/Amphitryon/controleurs/authentification.php")
+                .url("http://10.100.0.6/~ylesgourgues/php/controleurs/authentification.php")
                 .post(formBody)
                 .build();
 
@@ -78,24 +78,26 @@ public class MainActivity extends AppCompatActivity {
             public  void onResponse(Call call, Response response) throws IOException {
 
                 responseStr = response.body().string();
+                Log.d("Test",responseStr);
 
                 if (responseStr.compareTo("false")!=0){
                     try {
-                        JSONObject etudiant = new JSONObject(responseStr);
-                        Log.d("Test",etudiant.getString("NOM") + " est  connecté");
-                        if(etudiant.getString("statut").compareTo("prof")!=0) {
+                        JSONObject utilisateur = new JSONObject(responseStr);
+                        Log.d("Test",utilisateur.getString("LOGIN") + " est  connecté");
+                        if(utilisateur.getString("IDSTATUT").compareTo("2")==0) {
                             Intent intent = new Intent(MainActivity.this, MenuChefCuisinier.class);
-                            intent.putExtra("etudiant", etudiant.toString());
+                            intent.putExtra("UTILISATEUR", utilisateur.toString());
                             startActivity(intent);
                         }
-                        else {
+                        else if(utilisateur.getString("IDSTATUT").compareTo("1")==0) {
                             Intent intent = new Intent(MainActivity.this, MenuServeur.class);
-                            intent.putExtra("etudiant", etudiant.toString());
+                            intent.putExtra("UTILISATEUR", utilisateur.toString());
                             startActivity(intent);
                         }
                     }
                     catch(JSONException e){
                         // Toast.makeText(MainActivity.this, "Erreur de connexion !!!! !", Toast.LENGTH_SHORT).show();
+                        Log.d("Test",e.getMessage());
                     }
                 } else {
                     Log.d("Test","Login ou mot de  passe non valide !");
