@@ -14,9 +14,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.security.auth.callback.Callback;
-
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MenuServeur extends AppCompatActivity {
 
@@ -24,23 +26,23 @@ public class MenuServeur extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_serveur);
-/*
+
         try {
             listeClasses();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
- */
+
     }
-/*
+
     public void listeClasses() throws IOException {
 
         OkHttpClient client = new OkHttpClient();
-        ArrayList arrayListNomClasses = new ArrayList<String>();
+        ArrayList arrayListPlats = new ArrayList<String>();
 
         Request request = new Request.Builder()
-                .url("http://da5/Tp_AppEtudiant/EtudiantScript/controleurs/lesClasses.php")
+                .url("http://10.100.0.6/~ylesgourgues/php/controleurs/commande.php")
                 .build();
 
         Call call = client.newCall(request);
@@ -55,7 +57,7 @@ public class MenuServeur extends AppCompatActivity {
                     for (int i = 0; i < jsonArrayClasses.length(); i++) {
                         JSONObject jsonClasse = null;
                         jsonClasse = jsonArrayClasses.getJSONObject(i);
-                        arrayListNomClasses.add(jsonClasse.getString("nomClasse"));
+                        arrayListPlats.add(jsonClasse.getString("nomClasse"));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -63,9 +65,13 @@ public class MenuServeur extends AppCompatActivity {
 
                 ListView listViewClasses = findViewById(R.id.listViewClasses);
 
-                ArrayAdapter<String> arrayAdapterClasses = new ArrayAdapter<String>(MenuClasses.this, android.R.layout.simple_list_item_1, arrayListNomClasses);
+                ArrayAdapter<String> arrayAdapterClasses = new ArrayAdapter<String>(MenuServeur.this, android.R.layout.simple_list_item_1, arrayListPlats);
 
                 listViewClasses.setAdapter(arrayAdapterClasses);
+
+
+                JSONArray finalJsonArrayClasses = jsonArrayClasses;
+
 
             }
 
@@ -77,19 +83,4 @@ public class MenuServeur extends AppCompatActivity {
 
 
     }
-
-    JSONArray finalJsonArrayClasses = jsonArrayClasses;
-
-    listViewClasses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        try {
-            JSONObject uneClasse = finalJsonArrayClasses.getJSONObject(position);
-            Intent intent = new Intent(ClassesActivity.this, EtudiantsUneClasseActivity.class);
-            intent.putExtra("uneClasse" , uneClasse.toString());
-            startActivity(intent);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }});*/
 }
