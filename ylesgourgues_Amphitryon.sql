@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : ven. 26 jan. 2024 à 16:48
+-- Généré le : ven. 05 avr. 2024 à 13:07
 -- Version du serveur : 10.5.15-MariaDB-0+deb11u1
 -- Version de PHP : 8.1.11
 
@@ -232,7 +232,8 @@ CREATE TABLE `UTILISATEUR` (
 --
 
 INSERT INTO `UTILISATEUR` (`IDUTILISATEUR`, `IDSTATUT`, `LOGIN`, `MDP`, `NOM`, `PRENOM`) VALUES
-(1, 1, 'corentin', 'corentin', 'lartigue', 'coco');
+(1, 1, 'corentin', 'corentin', 'lartigue', 'coco'),
+(2, 2, 'yoann', 'yoann', 'lesgourgues', 'yoyo');
 
 --
 -- Index pour les tables déchargées
@@ -344,7 +345,7 @@ ALTER TABLE `STATUTUTILISATEUR`
 -- AUTO_INCREMENT pour la table `UTILISATEUR`
 --
 ALTER TABLE `UTILISATEUR`
-  MODIFY `IDUTILISATEUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IDUTILISATEUR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées
